@@ -4,7 +4,7 @@ resource "google_compute_network" "vpc_network" {
   routing_mode = var.vpc_routing_mode
   delete_default_routes_on_create = true
 }
-resource "google_compute_subnetwork" "network1" {
+resouce "google_compute_subnetwork" "network1" {
   name          = var.subnetwork1_name
   ip_cidr_range = var.subnetwork1_ip_cidr_range
   region        = var.gcp_region
