@@ -20,5 +20,5 @@ resource "google_compute_route" "default" {
   name             = var.default_route_name
   dest_range       = var.default_route_dest_range
   network          = google_compute_network.vpc_network.id
-  next_hop_gateway = "default-internet-gateway"
+  next_hop_gateway = var.next_hop_gateway
 }

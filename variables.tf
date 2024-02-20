@@ -30,3 +30,6 @@ variable "default_route_name" {
 variable "default_route_dest_range" {
   type = string
 }
+variable "next_hop_gateway" {
+  type = string
+}
