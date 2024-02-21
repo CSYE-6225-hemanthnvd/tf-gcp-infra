@@ -16,9 +16,42 @@ resource "google_compute_subnetwork" "network2" {
   region        = var.gcp_region
   network       = google_compute_network.vpc_network.id
 }
-resource "google_compute_route" "default" {
+resource "google_compute_route" "default_route" {
   name             = var.default_route_name
   dest_range       = var.default_route_dest_range
   network          = google_compute_network.vpc_network.id
-  next_hop_gateway = "default-internet-gateway"
+  next_hop_gateway = var.next_hop_gateway
+}
+
+resource "google_compute_firewall" "public_ingress" {
+  name          = var.public_ingress_name
+  network       = google_compute_network.vpc_network.name
+  target_tags   = [var.public_ingress_tag]
+  source_ranges = [var.public_ingress_source_range1]
+  allow {
+    protocol = "tcp"
+    ports    = [var.node_app_port]
+  }
+
+}
+resource "google_compute_instance" "app-instance" {
+  name         = var.compute_instance_name
+  machine_type = var.compute_instance_machine
+  zone         = var.compute_instance_zone
+  tags         = [var.public_ingress_tag]
+  boot_disk {
+    initialize_params {
+      image = var.custom_image
+      size  = var.compute_instance_size
+      type  = var.compute_instance_disktype
+    }
+  }
+  network_interface {
+    access_config {
+      network_tier = var.access_config_network_tire
+    }
+    queue_count = 0
+    subnetwork  = google_compute_subnetwork.network1.name
+  }
+
 }
