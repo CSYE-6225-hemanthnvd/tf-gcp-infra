@@ -22,7 +22,6 @@ resource "google_compute_route" "default_route" {
   network          = google_compute_network.vpc_network.id
   next_hop_gateway = var.next_hop_gateway
 }
-
 resource "google_compute_firewall" "public_ingress" {
   name          = var.public_ingress_name
   network       = google_compute_network.vpc_network.name
@@ -32,26 +31,16 @@ resource "google_compute_firewall" "public_ingress" {
     protocol = "tcp"
     ports    = [var.node_app_port]
   }
-
 }
-resource "google_compute_instance" "app-instance" {
-  name         = var.compute_instance_name
-  machine_type = var.compute_instance_machine
-  zone         = var.compute_instance_zone
-  tags         = [var.public_ingress_tag]
-  boot_disk {
-    initialize_params {
-      image = var.custom_image
-      size  = var.compute_instance_size
-      type  = var.compute_instance_disktype
-    }
-  }
-  network_interface {
-    access_config {
-      network_tier = var.access_config_network_tire
-    }
-    queue_count = 0
-    subnetwork  = google_compute_subnetwork.network1.name
-  }
-
+resource "google_compute_global_address" "private_ip_address" {
+  name          = "private-ip-address"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = google_compute_network.vpc_network.id
+}
+resource "google_service_networking_connection" "default" {
+  network                 = google_compute_network.vpc_network.id
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
 }

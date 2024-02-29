@@ -66,3 +66,35 @@ variable "compute_instance_disktype" {
 variable "access_config_network_tire" {
   type = string
 }
+variable "mysql_database_version" {
+  type = string
+}
+
+variable "mysql_database_edition" {
+  type = string
+}
+variable "mysql_database_availability_type" {
+  type = string
+}
+variable "mysql_database_tier" {
+  type = string
+}
+variable "mysql_database_disk_type" {
+  type = string
+}
+variable "mysql_database_disk_size" {
+  type = number
+}
+variable "database_name" {
+  type = string
+}
+variable "sql_user" {
+  type = string
+}
+variable "password_length" {
+  type = number
+}
+
+variable "db_name_suffix_length" {
+  type = number
+}
