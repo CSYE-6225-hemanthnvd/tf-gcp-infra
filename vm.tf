@@ -3,7 +3,7 @@ resource "google_compute_instance" "app-instance" {
   machine_type = var.compute_instance_machine
   zone         = var.compute_instance_zone
   tags         = [var.public_ingress_tag]
-  depends_on   = [google_sql_database_instance.main]
+  depends_on   = [google_sql_database_instance.main, google_service_account.logger_service_account, google_project_iam_binding.loggingAdmin, google_project_iam_binding.metricWriter]
   boot_disk {
     initialize_params {
       image = var.custom_image
@@ -40,5 +40,9 @@ resource "google_compute_instance" "app-instance" {
     }
     queue_count = 0
     subnetwork  = google_compute_subnetwork.network1.name
+  }
+  service_account {
+    email  = google_service_account.logger_service_account.email
+    scopes = ["cloud-platform"]
   }
 }

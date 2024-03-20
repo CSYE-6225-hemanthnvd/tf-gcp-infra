@@ -98,3 +98,22 @@ variable "password_length" {
 variable "db_name_suffix_length" {
   type = number
 }
+
+variable "logger_service_account_id" {
+  type = string
+}
+variable "logger_service_account_name" {
+  type = string
+}
+variable "dns_name" {
+  type = string
+}
+variable "dns_zone" {
+  type = string
+}
+variable "dns_record_type" {
+  type = string
+}
+variable "dns_record_ttl" {
+  type = number
+}
