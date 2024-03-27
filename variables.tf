@@ -99,10 +99,10 @@ variable "db_name_suffix_length" {
   type = number
 }
 
-variable "logger_service_account_id" {
+variable "vm_service_account_id" {
   type = string
 }
-variable "logger_service_account_name" {
+variable "vm_service_account_name" {
   type = string
 }
 variable "dns_name" {
@@ -116,4 +116,54 @@ variable "dns_record_type" {
 }
 variable "dns_record_ttl" {
   type = number
+}
+variable "MAILGUN_API_KEY" {
+  type = string
+}
+variable "MAILGUN_DOMAIN" {
+  type = string
+}
+variable "pubsub_topic_name" {
+  type = string
+}
+variable "pubsub_subscription_name" {
+  type = string
+}
+variable "pubsub_topic_message_retention_duration" {
+  type = string
+}
+variable "cloudfunction_bucket_name" {
+  type = string
+}
+variable "cloudfunction_bucket_location" {
+  type = string
+}
+
+variable "cloudfunction_bucket_object_name" {
+  type = string
+}
+variable "cloudfunction_name" {
+  type = string
+}
+variable "cloudfunction_runtime" {
+  type = string
+}
+variable "cloudfunction_entrypoint" {
+  type = string
+}
+
+variable "cloudfunction_event_trigger_type" {
+  type = string
+}
+variable "cloudfunction_event_trigger_retry_policy" {
+  type = string
+}
+variable "vpc_connector_name" {
+  type = string
+}
+variable "vpc_connector_cidr_range" {
+  type = string
+}
+variable "vpc_connector_machine_type" {
+  type = string
 }

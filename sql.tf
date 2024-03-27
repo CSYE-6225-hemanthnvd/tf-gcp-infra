@@ -10,13 +10,15 @@ resource "random_password" "password" {
   min_numeric = 2
 }
 resource "google_sql_user" "user" {
-  instance = google_sql_database_instance.main.name
-  name     = var.sql_user
-  password = random_password.password.result
+  instance   = google_sql_database_instance.main.name
+  name       = var.sql_user
+  password   = random_password.password.result
+  depends_on = [google_sql_database_instance.main, random_password.password]
 }
 resource "google_sql_database" "database" {
-  name     = var.database_name
-  instance = google_sql_database_instance.main.name
+  name       = var.database_name
+  instance   = google_sql_database_instance.main.name
+  depends_on = [google_sql_database_instance.main]
 }
 resource "google_sql_database_instance" "main" {
   name                = "main-instance-${random_id.db_name_suffix.hex}"
@@ -24,7 +26,7 @@ resource "google_sql_database_instance" "main" {
   database_version    = var.mysql_database_version
   region              = var.gcp_region
   deletion_protection = false
-  depends_on          = [google_service_networking_connection.default]
+  depends_on          = [google_service_networking_connection.default, random_id.db_name_suffix]
   settings {
     edition           = var.mysql_database_edition
     availability_type = var.mysql_database_availability_type
