@@ -167,3 +167,141 @@ variable "vpc_connector_cidr_range" {
 variable "vpc_connector_machine_type" {
   type = string
 }
+variable "autoscaler_name" {
+  type = string
+}
+variable "autoscaler_min_replicas" {
+  type = number
+}
+variable "autoscaler_max_replicas" {
+  type = number
+}
+variable "autoscaler_cooldown_period" {
+  type = number
+}
+variable "autoscaler_cpu_utilization_target" {
+  type = number
+}
+variable "instance_group_manager_name" {
+  type = string
+}
+variable "instance_group_manager_version_name" {
+  type = string
+}
+variable "instance_group_manager_auto_healing_policies_initial_delay" {
+  type = number
+}
+variable "instance_group_manager_named_port_name" {
+  type = string
+}
+variable "instance_group_manager_named_port_port" {
+  type = number
+}
+variable "health_check_name" {
+  type = string
+}
+variable "health_check_check_interval_sec" {
+  type = number
+}
+variable "health_check_timeout_sec" {
+  type = number
+}
+variable "health_check_healthy_threshold" {
+  type = number
+}
+variable "health_check_unhealthy_threshold" {
+  type = number
+}
+variable "http_health_check_request_path" {
+  type = string
+}
+variable "instance_template_name" {
+  type = string
+}
+variable "instance_template_machine_type" {
+  type = string
+}
+variable "webapp_ip_name" {
+  type = string
+}
+variable "webapp_ip_version" {
+  type = string
+}
+variable "webapp_ip_address_type" {
+  type = string
+}
+variable "global_forwarding_rule_name" {
+  type = string
+}
+variable "global_forwarding_rule_ip_protocol" {
+  type = string
+}
+variable "global_forwarding_rule_port_range" {
+  type = string
+}
+variable "load_balancing_scheme" {
+  type = string
+}
+variable "ssl_certificate_name" {
+  type = string
+}
+variable "domain" {
+  type = string
+}
+variable "target_https_proxy_name" {
+  type = string
+}
+variable "url_map_name" {
+  type = string
+}
+variable "backend_service_name" {
+  type = string
+}
+variable "backend_service_protocol" {
+  type = string
+}
+variable "backend_service_balancing_mode" {
+  type = string
+}
+variable "backend_service_capacity_scaler" {
+  type = number
+}
+variable "subnetwork2_purpose" {
+  type = string
+}
+variable "subnetwork2_role" {
+  type = string
+}
+variable "allow_health_check_firewall_name" {
+  type = string
+}
+variable "allow_health_check_firewall_direction" {
+  type = string
+}
+variable "allow_health_check_firewall_priority" {
+  type = number
+}
+variable "firewall_target_tag" {
+  type = string
+}
+variable "allow_proxy_firewall_name" {
+  type = string
+}
+variable "allow_proxy_firewall_direction" {
+  type = string
+}
+variable "allow_proxy_firewall_priority" {
+  type = number
+}
+variable "deny_traffic_firewall_name" {
+  type = string
+}
+variable "deny_traffic_firewall_direction" {
+  type = string
+}
+variable "deny_traffic_firewall_priority" {
+  type = number
+}
+variable "deny_traffic_firewall_source_range" {
+  type = string
+} 

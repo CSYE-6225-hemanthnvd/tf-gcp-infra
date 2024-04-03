@@ -3,10 +3,9 @@ resource "random_id" "db_name_suffix" {
 }
 resource "random_password" "password" {
   length      = var.password_length
-  special     = true
+  special     = false
   min_upper   = 2
   min_lower   = 2
-  min_special = 2
   min_numeric = 2
 }
 resource "google_sql_user" "user" {
