@@ -304,4 +304,40 @@ variable "deny_traffic_firewall_priority" {
 }
 variable "deny_traffic_firewall_source_range" {
   type = string
-} 
+}
+variable "webapp_keyring_name" {
+  type = string
+}
+variable "vm_key_name" {
+  type = string
+}
+variable "storage_bucket_key_name" {
+  type = string
+}
+variable "sql_key_name" {
+  type = string
+}
+variable "key_rotation_period" {
+  type = string
+}
+variable "private_ip_address_secret_name" {
+  type = string
+}
+variable "database_password_secret_name" {
+  type = string
+}
+variable "database_user_secret_name" {
+  type = string
+}
+variable "database_name_secret_name" {
+  type = string
+}
+variable "vm_key_id_secret_name" {
+  type = string
+}
+variable "app_instance_template_version_secret_name" {
+  type = string
+}
+variable "app_instance_template_version_secret_data" {
+  type = number
+}

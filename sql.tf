@@ -19,13 +19,25 @@ resource "google_sql_database" "database" {
   instance   = google_sql_database_instance.main.name
   depends_on = [google_sql_database_instance.main]
 }
+resource "google_project_service_identity" "gcp_sa_cloud_sql" {
+  provider = google-beta
+  service  = "sqladmin.googleapis.com"
+}
+resource "google_kms_crypto_key_iam_binding" "sql_key_iam_binding" {
+  crypto_key_id = google_kms_crypto_key.sql_key.id
+  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  members = [
+    "serviceAccount:${google_project_service_identity.gcp_sa_cloud_sql.email}",
+  ]
+}
 resource "google_sql_database_instance" "main" {
   name                = "main-instance-${random_id.db_name_suffix.hex}"
   root_password       = random_password.password.result
   database_version    = var.mysql_database_version
   region              = var.gcp_region
   deletion_protection = false
-  depends_on          = [google_service_networking_connection.default, random_id.db_name_suffix]
+  encryption_key_name = google_kms_crypto_key.sql_key.id
+  depends_on          = [google_service_networking_connection.default, random_id.db_name_suffix, google_kms_crypto_key_iam_binding.sql_key_iam_binding]
   settings {
     edition           = var.mysql_database_edition
     availability_type = var.mysql_database_availability_type

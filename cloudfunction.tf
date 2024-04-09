@@ -1,19 +1,3 @@
-resource "google_storage_bucket" "serverless_bucket" {
-  name                        = var.cloudfunction_bucket_name
-  location                    = var.cloudfunction_bucket_location
-  uniform_bucket_level_access = true
-}
-resource "google_storage_bucket_object" "serverless_bucket_object" {
-  name   = var.cloudfunction_bucket_object_name
-  bucket = google_storage_bucket.serverless_bucket.name
-  source = var.cloudfunction_bucket_object_name
-}
-resource "google_vpc_access_connector" "vpc-connector" {
-  name          = var.vpc_connector_name
-  ip_cidr_range = var.vpc_connector_cidr_range
-  network       = google_compute_network.vpc_network.name
-  machine_type  = var.vpc_connector_machine_type
-}
 resource "google_cloudfunctions2_function" "send_email" {
   name       = var.cloudfunction_name
   location   = var.gcp_region
@@ -44,4 +28,10 @@ resource "google_cloudfunctions2_function" "send_email" {
     pubsub_topic = google_pubsub_topic.verify_email.id
     retry_policy = var.cloudfunction_event_trigger_retry_policy
   }
+}
+resource "google_vpc_access_connector" "vpc-connector" {
+  name          = var.vpc_connector_name
+  ip_cidr_range = var.vpc_connector_cidr_range
+  network       = google_compute_network.vpc_network.name
+  machine_type  = var.vpc_connector_machine_type
 }
